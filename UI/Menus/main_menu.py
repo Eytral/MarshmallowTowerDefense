@@ -8,7 +8,8 @@ class MainMenu(Menu):
         """
         Initialize the main menu with title font, button font, and buttons.
 
-        :param game: The game object that holds the state manager and other game elements.
+        Args:
+            game: The game object that holds the state manager and other game elements.
         """
         super().__init__(game)  # Call the parent class's constructor
         self.title_font = pygame.font.Font(None, 74)  # Font for the title
@@ -29,7 +30,8 @@ class MainMenu(Menu):
         """
         Draw the title and buttons on the screen.
 
-        :param screen: The Pygame surface to draw the menu on.
+        Args:
+            screen: The Pygame surface to draw the menu on.
         """
         # Create and render the title text
         title_surface = self.title_font.render("Main Menu", True, (255, 255, 255))

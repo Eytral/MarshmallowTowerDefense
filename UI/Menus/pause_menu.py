@@ -64,6 +64,7 @@ class PauseMenu(Menu):
         Action to return to the main menu when 'Main Menu' button is clicked.
         This changes the current menu to the "MainMenu".
         """
+        self.game.state_manager.change_state("MainMenu")
         self.game.state_manager.current_state.change_menu("MainMenu")
 
     def exit_game(self):
