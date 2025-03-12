@@ -6,8 +6,7 @@ class State(ABC):
     Abstract Base Class for all game states/screens.
 
     Attributes:
-        screen (pygame.Surface): The main display surface.
-    
+        game: Reference to the main game object, allowing access to shared resources.
     """
 
     def __init__(self, game):
