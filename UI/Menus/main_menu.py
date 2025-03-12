@@ -43,10 +43,9 @@ class MainMenu(Menu):
     # ACTIONS (called when the respective buttons are clicked)
     def start_game(self):
         """
-        Action to start the game when 'Start Game' button is clicked.
-        This changes the state to the "Game_State".
+        Action to switch to level select menu when clicking play game.
         """
-        self.game.state_manager.change_state("Game_State")
+        self.game.state_manager.current_state.change_menu("LevelSelectMenu")
 
     def open_options(self):
         """

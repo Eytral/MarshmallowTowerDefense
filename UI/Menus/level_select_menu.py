@@ -18,7 +18,7 @@ class LevelSelectMenu(Menu):
 
     def create_buttons(self):
         """
-        Create the buttons for the OptionsMenu, positioning them and binding actions.
+        Create the buttons for the Level Select Menu, positioning them and binding actions.
 
         This method adds the buttons to the menu's list by calling add_button.
         """

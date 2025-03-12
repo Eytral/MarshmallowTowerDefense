@@ -3,6 +3,7 @@ from UI.Menus.base_menu import Menu
 from UI.Menus.main_menu import MainMenu
 from UI.Menus.options_menu import OptionsMenu
 from UI.Menus.pause_menu import PauseMenu
+from UI.Menus.level_select_menu import LevelSelectMenu
 import pygame
 
 class Menu_State(State):
@@ -21,7 +22,8 @@ class Menu_State(State):
         self.menus = {
             "MainMenu": MainMenu(self.game),
             "OptionsMenu": OptionsMenu(self.game),
-            "PauseMenu": PauseMenu(self.game)
+            "PauseMenu": PauseMenu(self.game),
+            "LevelSelectMenu": LevelSelectMenu(self.game)
         }
 
         # Start with the MainMenu

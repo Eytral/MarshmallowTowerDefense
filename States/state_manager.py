@@ -24,7 +24,7 @@ class StateManager:
         """
         self.states[state_name] = state
 
-    def change_state(self, new_state):
+    def change_state(self, new_state, *args, **kwargs):
         """
         Changes the current game state.
 
@@ -38,7 +38,7 @@ class StateManager:
             if self.current_state:
                 self.current_state.exit()  # Exit the current state
             self.current_state = self.states[new_state]  # Switch to the new state
-            self.current_state.enter()  # Initialize the new state
+            self.current_state.enter(*args, **kwargs)  # Initialize the new state
 
     def update(self, events):
         """
