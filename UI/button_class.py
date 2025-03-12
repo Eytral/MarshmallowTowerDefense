@@ -27,14 +27,14 @@ class Button:
         # Use the provided font or fall back to a default font
         self.font = font or pygame.font.SysFont('Arial', 24)
 
-    def is_hovered(self, mouse_pos):
+    def is_hovered(self):
         """
         Check if the mouse cursor is hovering over the button.
 
         Args:
             mouse_pos: The current position of the mouse (x, y).
         """
-        return self.rect.collidepoint(mouse_pos) #Returns True if the mouse is hovering over the button, False otherwise.
+        return self.rect.collidepoint(pygame.mouse.get_pos()) #Returns True if the mouse is hovering over the button, False otherwise.
 
     def click(self):
         """
@@ -42,7 +42,7 @@ class Button:
         """
         self.action() # Call the action function associated with the button when clicked.
 
-    def draw(self, screen, mouse_pos):
+    def draw(self, screen):
         """
         Draw the button on the screen with the appropriate color and text.
         
@@ -51,7 +51,7 @@ class Button:
             mouse_pos: The current position of the mouse (x, y), used to determine hover state.
         """
         # Determine which color to use based on whether the mouse is hovering over the button
-        color = self.hover_color if self.is_hovered(mouse_pos) else self.normal_color
+        color = self.hover_color if self.is_hovered() else self.normal_color
 
         # Draw the button as a rectangle with the chosen color
         pygame.draw.rect(screen, color, self.rect)
