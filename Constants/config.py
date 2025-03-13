@@ -1,2 +1,10 @@
-SCREEN_HEIGHT, SCREEN_WIDTH = 720, 1080
-BUTTON_WIDTH, BUTTON_HEIGHT = 200, 50
+SCREEN_HEIGHT, SCREEN_WIDTH = 720, 1080 # Screen dimensions
+
+BUTTON_WIDTH, BUTTON_HEIGHT = 200, 50 # Button dimensions
+
+GRID_CELL_SIZE = 64 # Cell size
+GRID_SIZE = GRID_CELL_SIZE * 10 # Size of entire grid (cell number = 10)
+OFFSET_FROM_GRID = 3 # Offset size (from grid border)
+
+SCREEN_TOPBAR_HEIGHT = 80 # Height of topbar (for game buttons)
+SCREEN_SIDEBAR_WIDTH = 300 # Width of sidebar (for tower selection/modification)
