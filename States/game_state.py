@@ -59,6 +59,13 @@ class Game_State(State):
         self.map.draw(screen, self.mouse.map_grid_x, self.mouse.map_grid_y) #placeholder values for mouse grid position
         pass  # Placeholder for rendering logic
 
+    def draw_debug_info(self, screen):
+        super().draw_debug_info(screen)
+        mouse_map_grid_text = self.debug_font.render(f"Mouse map_grid_pos: {(self.mouse.map_grid_x, self.mouse.map_grid_y)}", True, (255, 255, 255))
+        screen.blit(mouse_map_grid_text, (10,30))
+
+    
+
     def handle_events(self, events):
         """
         Handles user input and other event-driven behavior.

@@ -30,6 +30,8 @@ class Game():
         # Start the game in the main menu
         self.state_manager.change_state("Menu_State")
 
+        self.debug = True
+
     def run(self):
         """
         Runs the main game loop, handling events, updating states,
@@ -53,6 +55,10 @@ class Game():
 
                 # Draw the current state on the screen
                 self.state_manager.draw(self.screen)
+
+                # Draw debug info
+                if self.debug:
+                    self.state_manager.current_state.draw_debug_info(self.screen)
 
                 # Refresh the display
                 pygame.display.flip()
