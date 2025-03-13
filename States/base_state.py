@@ -52,6 +52,12 @@ class State(ABC):
         pass
 
     def draw_debug_info(self, screen):
+        """
+        Drawing logic for debug text
+
+        Args:  
+            screen: pygame display surface
+        """
         #draw current game_state
         state_text = self.debug_font.render(f"Current State: {self.game.state_manager.current_state.__class__.__name__}", True, (255, 255, 255))
         screen.blit(state_text, (10,10))

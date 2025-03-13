@@ -48,5 +48,12 @@ class LevelSelectMenu(Menu):
 
     # ACTIONS (called when the respective buttons are clicked)
     def set_level(self, level_name):
+        """
+        Initialises the chosen level to play - sets the game state to "Game_state" and loads the level based on level_name
+
+        Args:
+            screen: The Pygame surface to draw the menu on.
+        """
+         
         self.game.state_manager.change_state("Game_State", level_name)
         return level_name
