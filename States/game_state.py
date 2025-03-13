@@ -1,5 +1,6 @@
 from States.base_state import State
 from Game.map import Map 
+from Game.mouse import Mouse
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -15,6 +16,7 @@ class Game_State(State):
         super().__init__(game)  # Call the parent State class constructor
         self.level = None
         self.map = Map("Marsh_Mallows")
+        self.mouse = Mouse()
 
 
     def update(self, events):
@@ -24,6 +26,7 @@ class Game_State(State):
         Args:
             events: A list of input events (e.g., keyboard/mouse actions).
         """
+        self.mouse.update_mouse_pos()
         self.handle_events(events)  # Process player input and other events
 
 
@@ -49,7 +52,7 @@ class Game_State(State):
         Args:
             screen: pygame display surface
         """
-        self.map.draw(screen, 0 ,0) #placeholder values for mouse grid position
+        self.map.draw(screen, self.mouse.map_grid_x, self.mouse.map_grid_y) #placeholder values for mouse grid position
         pass  # Placeholder for rendering logic
 
     def handle_events(self, events):
