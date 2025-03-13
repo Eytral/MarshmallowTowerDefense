@@ -43,3 +43,7 @@ class Grid():
 
         border_rect = pygame.Rect(0, config.SCREEN_TOPBAR_HEIGHT, config.GRID_SIZE, config.GRID_SIZE)
         pygame.draw.rect(screen, (0,0,255), border_rect, 1)  # Draw a border (thickness = 1)
+
+
+    def set_tile(self, tile, grid_x, grid_y):
+        self.grid[grid_y][grid_x] = tile
