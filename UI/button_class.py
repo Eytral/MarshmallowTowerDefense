@@ -2,7 +2,7 @@ import pygame
 from Constants import config
 
 class Button:
-    def __init__(self, text, position, action, normal_color=(0, 255, 0), hover_color=(255, 255, 0), font=None):
+    def __init__(self, text, position, action, normal_color=(50, 50, 50), hover_color=(255, 0, 0), font=None):
         """
         Initialize the button with text, position, action, and appearance options.
         
