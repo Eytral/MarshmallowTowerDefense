@@ -25,7 +25,7 @@ class OptionsMenu(Menu):
         # Add a button to return to the main menu
         self.add_button(Button("Main Menu", 
                                (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
-                                config.SCREEN_HEIGHT // 2 - config.BUTTON_HEIGHT // 2),  # Center button vertically
+                                config.BUTTON_DEFAULT_Y_POS),
                                self.back_to_main_menu))  # Action to return to the main menu
 
     def draw(self, screen):

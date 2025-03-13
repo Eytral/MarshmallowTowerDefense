@@ -1,6 +1,7 @@
 from UI.Menus.base_menu import Menu
 from Constants import config
 from UI.button_class import Button 
+from Game.maps import MAP_DATA
 import pygame
 
 class LevelSelectMenu(Menu):
@@ -23,15 +24,13 @@ class LevelSelectMenu(Menu):
         This method adds the buttons to the menu's list by calling add_button.
         """
         # Add a button to choose each level (currently hardcoded)
-        self.add_button(Button("Level 1", 
-                               (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
-                                200),
-                               lambda: self.set_level("Marsh_Mallows")))  # Action to return to the main menu
-        
-        self.add_button(Button("Level 2", 
-                               (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
-                                300),  # Center button vertically
-                               lambda: self.set_level("Rando_Mallows")))  # Action to return to the main menu
+        for map_number, map_name in enumerate(MAP_DATA):
+            print(map_name)
+            self.add_button(Button(map_name, 
+                                (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
+                                    config.BUTTON_DEFAULT_Y_POS+(map_number*config.BUTTON_OFFSET)),
+                                lambda map_name=map_name: self.set_level(map_name)))  # Action to return to the main menu
+                
 
     def draw(self, screen):
         """

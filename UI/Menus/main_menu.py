@@ -22,9 +22,9 @@ class MainMenu(Menu):
 
         This method adds the buttons to the menu's list by calling add_button.
         """
-        self.add_button(Button("Start Game", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, 200), self.start_game))
-        self.add_button(Button("Options", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, 300), self.open_options))
-        self.add_button(Button("Exit", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, 400), self.exit_game))
+        self.add_button(Button("Start Game", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, config.BUTTON_DEFAULT_Y_POS), self.start_game))
+        self.add_button(Button("Options", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, config.BUTTON_DEFAULT_Y_POS+config.BUTTON_OFFSET), self.open_options))
+        self.add_button(Button("Exit", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, config.BUTTON_DEFAULT_Y_POS+config.BUTTON_OFFSET*2), self.exit_game))
 
     def draw(self, screen):
         """
