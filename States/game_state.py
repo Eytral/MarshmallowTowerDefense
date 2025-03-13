@@ -1,6 +1,7 @@
 from States.base_state import State
 from Game.map import Map 
 from Game.mouse import Mouse
+import pygame
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -30,16 +31,18 @@ class Game_State(State):
         self.handle_events(events)  # Process player input and other events
 
 
-    def enter(self, level_name):
+    def enter(self, *args):
         """
         Enters the Game_state, setting the level that will be played, and calling the load level function to load such level
 
         Args:
             level_number: integer number representing the level that is being loaded
         """
-        self.level = level_name
-        self.map = Map(level_name)
-        print(f"Entering level {self.level}")
+        if args:
+            level_name = args[0]
+            self.level = level_name
+            self.map = Map(level_name)
+            print(f"Entering level {self.level}")
 
         self.load_level()
 
@@ -63,4 +66,8 @@ class Game_State(State):
         Args:
             events: A list of events such as key presses or mouse clicks.
         """
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    self.game.state_manager.change_state("Pause_State")
         pass  # Placeholder for event handling logic
