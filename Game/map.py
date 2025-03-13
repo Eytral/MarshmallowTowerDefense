@@ -60,7 +60,8 @@ class Map:
             x: X-coordinate of the grid.
             y: Y-coordinate of the grid.
         """
-        self.map_grid.set_tile(2, x, y)
+        if self.check_tile((x,y)) == "empty space":
+            self.map_grid.set_tile(2, x, y)
         
     def remove_tower(self, x, y):
         """
@@ -70,7 +71,8 @@ class Map:
             x: X-coordinate of the grid.
             y: Y-coordinate of the grid.
         """
-        self.map_grid.set_tile(0, x, y)
+        if self.map_grid.check_tile((x,y)) == "tower":
+            self.map_grid.set_tile(0, x, y)
 
     def reset_map(self):
         """
