@@ -26,12 +26,12 @@ class LevelSelectMenu(Menu):
         self.add_button(Button("Level 1", 
                                (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
                                 200),
-                               lambda: self.set_level(1)))  # Action to return to the main menu
+                               lambda: self.set_level("Marsh_Mallows")))  # Action to return to the main menu
         
         self.add_button(Button("Level 2", 
                                (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
                                 300),  # Center button vertically
-                               lambda: self.set_level(2)))  # Action to return to the main menu
+                               lambda: self.set_level("Rando_Mallows")))  # Action to return to the main menu
 
     def draw(self, screen):
         """
@@ -48,6 +48,6 @@ class LevelSelectMenu(Menu):
         super().draw(screen)  # Call the draw method from the parent class to draw the buttons
 
     # ACTIONS (called when the respective buttons are clicked)
-    def set_level(self, level_number):
-        self.game.state_manager.change_state("Game_State", level_number)
-        return level_number
+    def set_level(self, level_name):
+        self.game.state_manager.change_state("Game_State", level_name)
+        return level_name

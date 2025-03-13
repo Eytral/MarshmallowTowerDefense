@@ -15,7 +15,7 @@ class Game_State(State):
 
         super().__init__(game)  # Call the parent State class constructor
         self.level = None
-        self.map = Map("Marsh_Mallows")
+        self.map = None
         self.mouse = Mouse()
 
 
@@ -30,14 +30,15 @@ class Game_State(State):
         self.handle_events(events)  # Process player input and other events
 
 
-    def enter(self, level_number):
+    def enter(self, level_name):
         """
         Enters the Game_state, setting the level that will be played, and calling the load level function to load such level
 
         Args:
             level_number: integer number representing the level that is being loaded
         """
-        self.level = level_number
+        self.level = level_name
+        self.map = Map(level_name)
         print(f"Entering level {self.level}")
 
         self.load_level()
