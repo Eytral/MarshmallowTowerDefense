@@ -3,6 +3,8 @@ from Game.map import Map
 from Game.mouse import Mouse
 import pygame
 from Constants import config
+from Entities.Towers.base_tower import Tower
+from UI.tower_selection_panel import TowerSelectionMenu
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -19,7 +21,8 @@ class Game_State(State):
         self.level = None
         self.map = None
         self.mouse = Mouse()
-
+        self.towers = []
+        self.towerselectionpanel = TowerSelectionMenu()
 
     def update(self, events):
         """
@@ -58,7 +61,7 @@ class Game_State(State):
             screen: pygame display surface
         """
         self.map.draw(screen, self.mouse.map_grid_x, self.mouse.map_grid_y) #placeholder values for mouse grid position
-        pass  # Placeholder for rendering logic
+        self.towerselectionpanel.draw(screen)
 
     def draw_debug_info(self, screen):
         super().draw_debug_info(screen)
@@ -78,4 +81,9 @@ class Game_State(State):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     self.game.state_manager.change_state("Pause_State")
+    
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for button in self.towerselectionpanel.buttons:
+                    if button.is_hovered():
+                        button.click()
         pass  # Placeholder for event handling logic
