@@ -27,6 +27,8 @@ class Map:
         self.map_grid = Grid(MAP_DATA[name]["grid"])
         self.background_image = sprites.MARSH_MALLOWS_SPRITE
         self.music = MAP_DATA[name]["music"]
+        self.enemy_path = self.determine_enemy_path()
+        self.enemy_start_pos = self.determine_enemy_start_pos()
 
     def draw(self, screen, grid_x, grid_y):
         """
@@ -79,6 +81,12 @@ class Map:
             return True
         else:
             return False
+
+    def determine_enemy_path(self):
+        return self.map_grid.find_path()
+        
+    def determine_enemy_start_pos(self):
+        return self.map_grid.find_enemy_start_pos()
 
     def reset_map(self):
         """
