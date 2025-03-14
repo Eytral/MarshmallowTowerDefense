@@ -1,5 +1,6 @@
 import pygame
 from abc import ABC, abstractmethod
+from Constants import config
 class State(ABC):
 
     """
@@ -60,10 +61,10 @@ class State(ABC):
         """
         #draw current game_state
         state_text = self.debug_font.render(f"Current State: {self.game.state_manager.current_state.__class__.__name__}", True, (255, 255, 255))
-        screen.blit(state_text, (10,10))
+        screen.blit(state_text, (10,config.DEBUG_STATETEXT_POS))
 
         mouse_coords_text = self.debug_font.render(f"Mouse pos: {pygame.mouse.get_pos()}", True, (255, 255, 255))
-        screen.blit(mouse_coords_text, (10,30))
+        screen.blit(mouse_coords_text, (10,config.DEBUG_MOUSEPOSTEXT_POS))
 
     
 

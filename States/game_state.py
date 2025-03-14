@@ -2,6 +2,7 @@ from States.base_state import State
 from Game.map import Map 
 from Game.mouse import Mouse
 import pygame
+from Constants import config
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -62,7 +63,7 @@ class Game_State(State):
     def draw_debug_info(self, screen):
         super().draw_debug_info(screen)
         mouse_map_grid_text = self.debug_font.render(f"Mouse map_grid_pos: {(self.mouse.map_grid_x, self.mouse.map_grid_y)}", True, (255, 255, 255))
-        screen.blit(mouse_map_grid_text, (10,30))
+        screen.blit(mouse_map_grid_text, (10,config.DEBUG_MOUSEGRIDTEXT_POS))
 
     
 
