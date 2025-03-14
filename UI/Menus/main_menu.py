@@ -11,20 +11,14 @@ class MainMenu(Menu):
         Args:
             game: The game object that holds the state manager and other game elements.
         """
-        super().__init__(game)  # Call the parent class's constructor
+        button_data = [
+            ("Start Game", self.start_game),
+            ("Options", self.open_options),
+            ("Exit", self.exit_game)
+        ]
+        super().__init__(game, "MainMenu", button_data)  # Call the parent class's constructor
         self.title_font = pygame.font.Font(None, 74)  # Font for the title
         self.button_font = pygame.font.Font(None, 36)  # Font for the buttons
-        self.create_buttons()  # Create buttons for the main menu
-
-    def create_buttons(self):
-        """
-        Create the buttons for the MainMenu, positioning them and binding actions.
-
-        This method adds the buttons to the menu's list by calling add_button.
-        """
-        self.add_button(Button("Start Game", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, config.BUTTON_DEFAULT_Y_POS), self.start_game))
-        self.add_button(Button("Options", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, config.BUTTON_DEFAULT_Y_POS+config.BUTTON_OFFSET), self.open_options))
-        self.add_button(Button("Exit", (config.SCREEN_WIDTH//2-config.BUTTON_WIDTH//2, config.BUTTON_DEFAULT_Y_POS+config.BUTTON_OFFSET*2), self.exit_game))
 
     def draw(self, screen):
         """

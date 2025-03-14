@@ -11,22 +11,11 @@ class OptionsMenu(Menu):
         Args:
             game: The game object that holds the state manager and other game elements.
         """
-        super().__init__(game)  # Call the parent class's constructor
+        button_data = [
+            ("Main Menu", self.back_to_main_menu)
+        ]
+        super().__init__(game, "Options", button_data)  # Call the parent class's constructor
         self.title_font = pygame.font.Font(None, 74)  # Font for the title
-        self.button_font = pygame.font.Font(None, 36)  # Font for the buttons
-        self.create_buttons()  # Create buttons for the options menu
-
-    def create_buttons(self):
-        """
-        Create the buttons for the OptionsMenu, positioning them and binding actions.
-
-        This method adds the buttons to the menu's list by calling add_button.
-        """
-        # Add a button to return to the main menu
-        self.add_button(Button("Main Menu", 
-                               (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
-                                config.BUTTON_DEFAULT_Y_POS),
-                               self.back_to_main_menu))  # Action to return to the main menu
 
     def draw(self, screen):
         """

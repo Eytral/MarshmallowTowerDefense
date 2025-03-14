@@ -11,34 +11,14 @@ class PauseMenu(Menu):
         Args:
             game: The game object that holds the state manager and other game elements.
         """
-        super().__init__(game)  # Call the parent class's constructor
+        button_data = [
+            ("Resume", self.resume_game),
+            ("Main Menu", self.back_to_main_menu),
+            ("Exit", self.exit_game)
+        ]
+        super().__init__(game, "Pause", button_data)  # Call the parent class's constructor
         self.title_font = pygame.font.Font(None, 74)  # Font for the title
         self.button_font = pygame.font.Font(None, 36)  # Font for the buttons
-        self.create_buttons()  # Create buttons for the pause menu
-
-    def create_buttons(self):
-        """
-        Create the buttons for the PauseMenu, positioning them and binding actions.
-
-        This method adds the buttons to the menu's list by calling add_button.
-        """
-        # Add a button to resume the game
-        self.add_button(Button("Resume", 
-                               (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2, 
-                                config.BUTTON_DEFAULT_Y_POS),  # Center button horizontally
-                               self.resume_game))  # Action to resume the game
-        
-        # Add a button to return to the main menu
-        self.add_button(Button("Main Menu", 
-                               (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2, 
-                                config.BUTTON_DEFAULT_Y_POS+config.BUTTON_OFFSET),  # Center button horizontally
-                               self.back_to_main_menu))  # Action to go to the main menu
-
-        # Add a button to exit the game
-        self.add_button(Button("Exit", 
-                               (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2, 
-                                config.BUTTON_DEFAULT_Y_POS+config.BUTTON_OFFSET*2),  # Center button horizontally
-                               self.exit_game))  # Action to exit the game
 
     def draw(self, screen):
         """

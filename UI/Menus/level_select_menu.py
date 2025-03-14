@@ -12,24 +12,12 @@ class LevelSelectMenu(Menu):
         Args:
             game: The game object that holds the state manager and other game elements.
         """
-        super().__init__(game)  # Call the parent class's constructor
+        button_data = []
+        for map_name in MAP_DATA:
+            button_data.append((map_name, lambda map_name=map_name: self.set_level(map_name)))
+        super().__init__(game, "Level Select", button_data)  # Call the parent class's constructor
         self.title_font = pygame.font.Font(None, 74)  # Font for the title
         self.button_font = pygame.font.Font(None, 36)  # Font for the buttons
-        self.create_buttons()  # Create buttons for the level select menu
-
-    def create_buttons(self):
-        """
-        Create the buttons for the Level Select Menu, positioning them and binding actions.
-
-        This method adds the buttons to the menu's list by calling add_button.
-        """
-        # Add a button to choose each level (currently hardcoded)
-        for map_number, map_name in enumerate(MAP_DATA):
-            self.add_button(Button(map_name, 
-                                (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
-                                    config.BUTTON_DEFAULT_Y_POS+(map_number*config.BUTTON_OFFSET)),
-                                lambda map_name=map_name: self.set_level(map_name)))  # Action to return to the main menu
-                
 
     def draw(self, screen):
         """
