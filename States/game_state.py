@@ -5,6 +5,7 @@ import pygame
 from Constants import config
 from Entities.Towers.base_tower import Tower
 from UI.tower_selection_panel import TowerSelectionMenu
+from Entities.Enemies.base_enemy import Enemy
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -23,18 +24,10 @@ class Game_State(State):
         self.mouse = Mouse()
         self.towers = {}
         self.towerselectionpanel = TowerSelectionMenu(self.game)
-
-    def update(self, events):
-        """
-        Updates the game based on player input and game logic.
-        
-        Args:
-            events: A list of input events (e.g., keyboard/mouse actions).
-        """
-        self.mouse.update_mouse_pos()
-        self.handle_events(events)  # Process player input and other events
+        self.enemies = []
 
 
+    # -- STATE HANDLING --
     def enter(self, *args):
         """
         Enters the Game_state, setting the level that will be played, and calling the load level function to load such level
@@ -53,6 +46,8 @@ class Game_State(State):
     def load_level(self):
         pass
 
+
+    # -- RENDERING --
     def draw(self, screen):
         """
         Handles rendering the game to the screen.
@@ -62,11 +57,17 @@ class Game_State(State):
         """
         self.map.draw(screen, self.mouse.map_grid_x, self.mouse.map_grid_y) #placeholder values for mouse grid position
         self.draw_towers(screen)
+        self.draw_enemies(screen)
         self.towerselectionpanel.draw(screen)
+
 
     def draw_towers(self, screen):
         for _, tower in self.towers.items():
             tower.draw(screen)
+
+    def draw_enemies(self, screen):
+        for enemy in self.enemies:
+            enemy.draw(screen)
 
     def draw_debug_info(self, screen):
         """
@@ -79,6 +80,20 @@ class Game_State(State):
         super().draw_debug_info(screen)
         mouse_map_grid_text = self.debug_font.render(f"Mouse map_grid_pos: {(self.mouse.map_grid_x, self.mouse.map_grid_y)}", True, (255, 255, 255))
         screen.blit(mouse_map_grid_text, (10,config.DEBUG_MOUSEGRIDTEXT_POS))
+
+
+    # -- EVENT HANDLING --
+    def update(self, events):
+            """
+            Updates the game based on player input and game logic.
+            
+            Args:
+                events: A list of input events (e.g., keyboard/mouse actions).
+            """
+            self.mouse.update_mouse_pos()
+            self.handle_events(events)  # Process player input and other events
+            self.update_enemies()
+
 
     def handle_events(self, events):
         """
@@ -103,6 +118,13 @@ class Game_State(State):
                 if self.mouse.current_action == "Removing Tower":
                     self.remove_tower()
 
+    def update_enemies(self):
+        for enemy in self.enemies:
+            enemy.update()
+            if enemy.is_dead or enemy.reached_end:
+                self.enemies.remove(enemy)
+                print(f"Enemy has been removed")
+
     def place_tower(self):
         """
         Places a tower on the map grid and adds the selected tower to the game_state tower dict
@@ -111,6 +133,7 @@ class Game_State(State):
             self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection(self.mouse.map_grid_x, self.mouse.map_grid_y) # Create new tower object
             print(f"successfully placed tower, tower list is{self.towers}") # print dictionary of towers for debugging purposes
             self.mouse.change_current_action(None, None) # Reset mouse action and selection
+
 
     def remove_tower(self): # If able to remove tower
         """
