@@ -106,43 +106,71 @@ class Grid:
         self.grid[grid_y][grid_x] = tile
 
     def find_path(self):
-        # Find the start position (3)
+    # Find the start position (3)
         start = None
         for r in range(len(self.grid)):
             for c in range(len(self.grid[r])):
-                if self.grid[r][c] == 3:
+                if self.grid[r][c] == 3:  # Look for the start marker
                     start = (r, c)
                     break
             if start:
                 break
 
-        # Directions for movement: up, down, left, right
-        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        if not start:
+            print("Start position (3) not found in the grid.")
+            return []  # Return an empty list if start not found
 
-        # Initialize the path list starting from the start position
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Movement directions
+
         path = [start]
         visited = set([start])
         current_position = start
 
         while True:
             found_next_step = False
-            # Check all possible directions (up, down, left, right)
+            possible_moves = []
+
+            # Check all possible directions
             for dr, dc in directions:
                 nr, nc = current_position[0] + dr, current_position[1] + dc
 
-                if 0 <= nr < len(self.grid) and 0 <= nc < len(self.grid[0]) and self.grid[nr][nc] == 1 and (nr, nc) not in visited:
-                    # Valid path, add to the path
-                    visited.add((nr, nc))
-                    path.append((nr, nc))
-                    current_position = (nr, nc)
-                    found_next_step = True
-                    break  # Move in the first valid direction found
+                # Ensure we stay within bounds, check for valid path (1), and avoid revisiting cells
+                if 0 <= nr < len(self.grid) and 0 <= nc < len(self.grid[0]):
+                    if self.grid[nr][nc] == 1 and (nr, nc) not in visited:
+                        possible_moves.append((nr, nc))
 
-            if not found_next_step:
-                break  # No valid path found, end the search
+            if not possible_moves:
+                print(f"Dead end reached at {current_position}, breaking out.")
+                break  # No valid path found, exit loop
 
+            next_position = possible_moves[0]  # Pick the first valid move
+
+            # Add the next position to the path and mark it as visited
+            visited.add(next_position)
+            path.append(next_position)
+            current_position = next_position
+
+            print(f"Moving from {current_position} to {next_position}")
+
+        print(f"Enemy grid path: {path}")
+        # Convert the path coordinates into screen positions
         path_positions = []
         for coordinate in path:
-            x, y = coordinate[0]*config.GRID_CELL_SIZE, coordinate[1]*config.GRID_CELL_SIZE
-            path_positions.append((x,y))
+            x, y = (coordinate[1]) * config.GRID_CELL_SIZE, coordinate[0] * config.GRID_CELL_SIZE + config.SCREEN_TOPBAR_HEIGHT
+            path_positions.append((x, y))
+
+        print(f"Enemy path (screen positions): {path_positions}")
         return path_positions
+
+
+
+
+
+        
+    def find_enemy_start_pos(self):
+        for row_num, row in enumerate(self.grid):
+            for column_num, space in enumerate(row):
+                if space == 3:
+                    x, y = column_num*config.GRID_CELL_SIZE, row_num*config.GRID_CELL_SIZE + config.SCREEN_TOPBAR_HEIGHT 
+                    return (x, y)
+        return (0,0)
