@@ -62,6 +62,9 @@ class Map:
         """
         if self.check_tile((x,y)) == "empty space":
             self.map_grid.set_tile(2, x, y)
+            return True
+        else:
+            return False
         
     def remove_tower(self, x, y):
         """
@@ -73,6 +76,9 @@ class Map:
         """
         if self.map_grid.check_tile((x,y)) == "tower":
             self.map_grid.set_tile(0, x, y)
+            return True
+        else:
+            return False
 
     def reset_map(self):
         """

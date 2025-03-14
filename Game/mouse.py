@@ -52,23 +52,16 @@ class Mouse():
         else:
             return False  # If either grid position is None, return False
 
-    def change_current_selection(self, selection):
+    def change_current_action(self, action, selection):
         """
-        Changes the current selection to the new selection provided.
-        
-        Args:
-            selection: The new selection (e.g., a tower or object to place).
-        """
-        self.current_selection = selection  # Set the new selection
-
-    def change_current_action(self, action):
-        """
-        Changes the current action to the new action provided.
+        Changes the current action and selection to the new action provided.
         
         Args:
             action: The new action to perform (e.g., place tower, select object).
+            selection: The new selection (e.g., a tower or object to place).
         """
         self.current_action = action  # Set the new action
+        self.current_selection = selection  # Set the new selection
 
     def no(self):
         """

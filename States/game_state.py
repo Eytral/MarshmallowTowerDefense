@@ -21,8 +21,8 @@ class Game_State(State):
         self.level = None
         self.map = None
         self.mouse = Mouse()
-        self.towers = []
-        self.towerselectionpanel = TowerSelectionMenu()
+        self.towers = {}
+        self.towerselectionpanel = TowerSelectionMenu(self.game)
 
     def update(self, events):
         """
@@ -68,7 +68,8 @@ class Game_State(State):
         mouse_map_grid_text = self.debug_font.render(f"Mouse map_grid_pos: {(self.mouse.map_grid_x, self.mouse.map_grid_y)}", True, (255, 255, 255))
         screen.blit(mouse_map_grid_text, (10,config.DEBUG_MOUSEGRIDTEXT_POS))
 
-    
+    def select_tower(self, tower_type):
+        self.mouse.change_current_action("Placing Tower", tower_type)
 
     def handle_events(self, events):
         """
@@ -86,4 +87,10 @@ class Game_State(State):
                 for button in self.towerselectionpanel.buttons:
                     if button.is_hovered():
                         button.click()
+                print(self.mouse.current_action)
+                if self.mouse.current_action == "Placing Tower":
+                    if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y):
+                        self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection
+                        print(f"successfully placed tower, tower list is{self.towers}")
+
         pass  # Placeholder for event handling logic

@@ -4,9 +4,10 @@ from UI.button_class import Button
 from Entities.Towers.base_tower import Tower
 
 class TowerSelectionMenu():
-    def __init__(self):
+    def __init__(self, game):
         self.title = "Select a Tower"
         self.buttons = []
+        self.game = game
 
         # Create button data: (button text, action)
         button_data = [
@@ -18,7 +19,7 @@ class TowerSelectionMenu():
     def create_buttons(self, button_data):
         for index, (text, action) in enumerate(button_data):
             self.buttons.append(Button(text,
-                                       (config.SCREEN_WIDTH-config.SCREEN_SIDEBAR_WIDTH, config.SCREEN_TOPBAR_HEIGHT),
+                                       (config.SCREEN_WIDTH-config.SCREEN_SIDEBAR_WIDTH, config.SCREEN_TOPBAR_HEIGHT+config.BUTTON_OFFSET*index),
                                        action))
 
     def draw(self, screen):
@@ -26,5 +27,5 @@ class TowerSelectionMenu():
             button.draw(screen)
 
     def select_tower(self, tower_type):
-        """Handle tower selection logic."""
+        self.game.state_manager.current_state.select_tower(tower_type)
         print(f"Selected Tower: {tower_type.__name__}")  # Debugging feedback
