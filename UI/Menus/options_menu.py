@@ -25,10 +25,6 @@ class OptionsMenu(Menu):
             screen: The Pygame surface to draw the menu on.
         """
         # Create and render the title text
-        title_surface = self.title_font.render("Options", True, (255, 255, 255))  # White color for title text
-        text_rect = title_surface.get_rect()  # Get the rect of the title text for positioning
-        text_rect.center = (config.SCREEN_WIDTH // 2, 150)  # Position the title at the center horizontally and near the top
-        screen.blit(title_surface, text_rect)  # Draw the title on the screen
         super().draw(screen)  # Call the draw method from the parent class to draw the buttons
 
     # ACTIONS (called when the respective buttons are clicked)

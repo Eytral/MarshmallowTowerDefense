@@ -16,8 +16,6 @@ class LevelSelectMenu(Menu):
         for map_name in MAP_DATA:
             button_data.append((map_name, lambda map_name=map_name: self.set_level(map_name)))
         super().__init__(game, "Level Select", button_data)  # Call the parent class's constructor
-        self.title_font = pygame.font.Font(None, 74)  # Font for the title
-        self.button_font = pygame.font.Font(None, 36)  # Font for the buttons
 
     def draw(self, screen):
         """
@@ -26,11 +24,6 @@ class LevelSelectMenu(Menu):
         Args:
             screen: The Pygame surface to draw the menu on.
         """
-        # Create and render the title text
-        title_surface = self.title_font.render("Level Select", True, (255, 255, 255))  # White color for title text
-        text_rect = title_surface.get_rect()  # Get the rect of the title text for positioning
-        text_rect.center = (config.SCREEN_WIDTH // 2, 150)  # Position the title at the center horizontally and near the top
-        screen.blit(title_surface, text_rect)  # Draw the title on the screen
         super().draw(screen)  # Call the draw method from the parent class to draw the buttons
 
     # ACTIONS (called when the respective buttons are clicked)
