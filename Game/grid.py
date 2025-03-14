@@ -88,6 +88,8 @@ class Grid:
                 rect = pygame.Rect(x * config.GRID_CELL_SIZE + config.OFFSET_FROM_GRID, y * config.GRID_CELL_SIZE + config.SCREEN_TOPBAR_HEIGHT + config.OFFSET_FROM_GRID, config.GRID_CELL_SIZE-config.OFFSET_FROM_GRID*2, config.GRID_CELL_SIZE-config.OFFSET_FROM_GRID*2)
                 if cell == 1:
                     pygame.draw.rect(screen, (255, 165, 0), rect)  # Draw orange for path tiles
+                if cell == 3:
+                    pygame.draw.rect(screen, (255, 0, 0), rect)  # Draw red for starting point tile
 
         border_rect = pygame.Rect(0, config.SCREEN_TOPBAR_HEIGHT, config.GRID_SIZE, config.GRID_SIZE)
         pygame.draw.rect(screen, (0, 0, 255), border_rect, 1)  # Draw a border (thickness = 1)
