@@ -61,7 +61,12 @@ class Game_State(State):
             screen: pygame display surface
         """
         self.map.draw(screen, self.mouse.map_grid_x, self.mouse.map_grid_y) #placeholder values for mouse grid position
+        self.draw_towers(screen)
         self.towerselectionpanel.draw(screen)
+
+    def draw_towers(self, screen):
+        for _, tower in self.towers.items():
+            tower.draw(screen)
 
     def draw_debug_info(self, screen):
         super().draw_debug_info(screen)
@@ -87,10 +92,12 @@ class Game_State(State):
                 for button in self.towerselectionpanel.buttons:
                     if button.is_hovered():
                         button.click()
-                if self.mouse.current_action == "Placing Tower":
-                    if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y):
-                        self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection
-                        print(f"successfully placed tower, tower list is{self.towers}")
-                        self.mouse.change_current_action(None, None)
 
-        pass  # Placeholder for event handling logic
+                if self.mouse.current_action == "Placing Tower":
+                    self.place_tower()
+
+    def place_tower(self):
+        if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y):
+            self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection(self.mouse.map_grid_x, self.mouse.map_grid_y)
+            print(f"successfully placed tower, tower list is{self.towers}")
+            self.mouse.change_current_action(None, None)
