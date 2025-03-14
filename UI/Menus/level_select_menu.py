@@ -25,7 +25,6 @@ class LevelSelectMenu(Menu):
         """
         # Add a button to choose each level (currently hardcoded)
         for map_number, map_name in enumerate(MAP_DATA):
-            print(map_name)
             self.add_button(Button(map_name, 
                                 (config.SCREEN_WIDTH // 2 - config.BUTTON_WIDTH // 2,  # Center button horizontally
                                     config.BUTTON_DEFAULT_Y_POS+(map_number*config.BUTTON_OFFSET)),
