@@ -87,10 +87,10 @@ class Game_State(State):
                 for button in self.towerselectionpanel.buttons:
                     if button.is_hovered():
                         button.click()
-                print(self.mouse.current_action)
                 if self.mouse.current_action == "Placing Tower":
                     if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y):
                         self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection
                         print(f"successfully placed tower, tower list is{self.towers}")
+                        self.mouse.change_current_action(None, None)
 
         pass  # Placeholder for event handling logic
