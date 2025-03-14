@@ -15,6 +15,7 @@ class LevelSelectMenu(Menu):
         button_data = []
         for map_name in MAP_DATA:
             button_data.append((map_name, lambda map_name=map_name: self.set_level(map_name)))
+        button_data.append(("Main Menu", self.back_to_main_menu))
         super().__init__(game, "Level Select", button_data)  # Call the parent class's constructor
 
     def draw(self, screen):
@@ -37,3 +38,10 @@ class LevelSelectMenu(Menu):
          
         self.game.state_manager.change_state("Game_State", level_name)
         return level_name
+    
+    def back_to_main_menu(self):
+        """
+        Action to return to the main menu when 'Main Menu' button is clicked.
+        This changes the current menu to the "MainMenu".
+        """
+        self.game.state_manager.current_state.change_menu("MainMenu")
