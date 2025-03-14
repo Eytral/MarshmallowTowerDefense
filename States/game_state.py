@@ -69,12 +69,16 @@ class Game_State(State):
             tower.draw(screen)
 
     def draw_debug_info(self, screen):
+        """
+        Draws debug information relevant to game state:
+        Mouse map_grid_pos: Shows the grid index the mouse is hovering over
+
+        Args:
+            screen: pygame display surface
+        """
         super().draw_debug_info(screen)
         mouse_map_grid_text = self.debug_font.render(f"Mouse map_grid_pos: {(self.mouse.map_grid_x, self.mouse.map_grid_y)}", True, (255, 255, 255))
         screen.blit(mouse_map_grid_text, (10,config.DEBUG_MOUSEGRIDTEXT_POS))
-
-    def select_tower(self, tower_type):
-        self.mouse.change_current_action("Placing Tower", tower_type)
 
     def handle_events(self, events):
         """
@@ -96,8 +100,23 @@ class Game_State(State):
                 if self.mouse.current_action == "Placing Tower":
                     self.place_tower()
 
+                if self.mouse.current_action == "Removing Tower":
+                    self.remove_tower()
+
     def place_tower(self):
-        if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y):
-            self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection(self.mouse.map_grid_x, self.mouse.map_grid_y)
-            print(f"successfully placed tower, tower list is{self.towers}")
-            self.mouse.change_current_action(None, None)
+        """
+        Places a tower on the map grid and adds the selected tower to the game_state tower dict
+        """
+        if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y): # If able to place tower
+            self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection(self.mouse.map_grid_x, self.mouse.map_grid_y) # Create new tower object
+            print(f"successfully placed tower, tower list is{self.towers}") # print dictionary of towers for debugging purposes
+            self.mouse.change_current_action(None, None) # Reset mouse action and selection
+
+    def remove_tower(self): # If able to remove tower
+        """
+        Removes a tower on the map grid and removes the selected tower from the game_state tower dict
+        """
+        if self.map.remove_tower(self.mouse.map_grid_x, self.mouse.map_grid_y):
+            del self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] # Delete selected tower object (at selected map coordinate)
+            print(f"successfully deleted tower, tower list is{self.towers}") # print dictionary of towers for debugging purposes
+            self.mouse.change_current_action(None, None) # Reset mouse action and selection
