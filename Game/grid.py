@@ -104,3 +104,45 @@ class Grid:
             grid_y: Y-coordinate of the grid.
         """
         self.grid[grid_y][grid_x] = tile
+
+    def find_path(self):
+        # Find the start position (3)
+        start = None
+        for r in range(len(self.grid)):
+            for c in range(len(self.grid[r])):
+                if self.grid[r][c] == 3:
+                    start = (r, c)
+                    break
+            if start:
+                break
+
+        # Directions for movement: up, down, left, right
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+        # Initialize the path list starting from the start position
+        path = [start]
+        visited = set([start])
+        current_position = start
+
+        while True:
+            found_next_step = False
+            # Check all possible directions (up, down, left, right)
+            for dr, dc in directions:
+                nr, nc = current_position[0] + dr, current_position[1] + dc
+
+                if 0 <= nr < len(self.grid) and 0 <= nc < len(self.grid[0]) and self.grid[nr][nc] == 1 and (nr, nc) not in visited:
+                    # Valid path, add to the path
+                    visited.add((nr, nc))
+                    path.append((nr, nc))
+                    current_position = (nr, nc)
+                    found_next_step = True
+                    break  # Move in the first valid direction found
+
+            if not found_next_step:
+                break  # No valid path found, end the search
+
+        path_positions = []
+        for coordinate in path:
+            x, y = coordinate[0]*config.GRID_CELL_SIZE, coordinate[1]*config.GRID_CELL_SIZE
+            path_positions.append((x,y))
+        return path_positions
