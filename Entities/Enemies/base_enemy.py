@@ -1,20 +1,20 @@
 from Constants import sprites, config
+import copy
 
 class Enemy():
-    def __init__(self, reward, health, speed, start_position, path):
+    def __init__(self, start_position, path, reward=5, health=10, speed=1):
         self.reward = reward
         self.health = health
         self.speed = speed
         self.position = start_position
-        self.path = path
+        self.path = copy.deepcopy(path)
         self.is_dead = False
         self.reached_end = False
         self.sprite = sprites.ENEMY_DEFAULT_SPRITE
         
     def move(self):
-        #print(self.position)
         target_position = self.path[0]
-        print(f"targeting positiong: {target_position}")
+        #print(f"targeting positiong: {target_position}")
 
         x1, y1 = self.position
         x2, y2 = target_position
