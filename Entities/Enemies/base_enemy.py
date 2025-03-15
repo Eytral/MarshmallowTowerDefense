@@ -2,11 +2,12 @@ from Constants import sprites, config
 import copy
 
 class Enemy():
-    def __init__(self, start_position, path, reward=5, health=10, speed=6):
+    def __init__(self, start_position, path, reward=5, health=100, speed=2):
         self.reward = reward
         self.health = health
         self.speed = speed
-        self.position = start_position
+        self.position = copy.deepcopy(start_position)
+        self.grid_position = (copy.deepcopy(start_position[0])//config.GRID_CELL_SIZE, copy.deepcopy(start_position[1])//config.GRID_CELL_SIZE)
         self.path = copy.deepcopy(path)
         self.is_dead = False
         self.reached_end = False
@@ -34,6 +35,7 @@ class Enemy():
             
             # Update the enemy's position
             self.position = (x1, y1)
+            self.grid_position = (x1//config.GRID_CELL_SIZE, y1//config.GRID_CELL_SIZE)
 
             if self.position == target_position:
                 #print("found target")
@@ -45,10 +47,12 @@ class Enemy():
         #print(f"enemy pos is:{self.position}")
         screen.blit(self.sprite, (self.position))
 
-    def take_damage(self):
-        self.health -= 1
+    def take_damage(self, damage):
+        print(f"Enemy taken {damage} damage")
+        self.health -= damage
 
     def check_is_dead(self):
+        #print("Checking is dead")
         if self.health <= 0:
             self.is_dead = True
             print(f"Enemy has reached end (of its life)")
