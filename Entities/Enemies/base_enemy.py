@@ -2,7 +2,7 @@ from Constants import sprites, config
 import copy
 
 class Enemy():
-    def __init__(self, start_position, path, reward=5, health=10, speed=1):
+    def __init__(self, start_position, path, reward=5, health=10, speed=6):
         self.reward = reward
         self.health = health
         self.speed = speed
@@ -13,30 +13,32 @@ class Enemy():
         self.sprite = sprites.ENEMY_DEFAULT_SPRITE
         
     def move(self):
-        target_position = self.path[0]
-        #print(f"targeting positiong: {target_position}")
+        for _ in range(self.speed):
+            target_position = self.path[0]
+            #print(f"targeting positiong: {target_position}")
 
-        x1, y1 = self.position
-        x2, y2 = target_position
-        
-        # Move horizontally
-        if x1 < x2:
-            x1 += self.speed
-        elif x1 > x2:
-            x1 -= self.speed
-        
-        # Move vertically
-        if y1 < y2:
-            y1 += self.speed
-        elif y1 > y2:
-            y1 -= self.speed
-        
-        # Update the enemy's position
-        self.position = (x1, y1)
+            x1, y1 = self.position
+            x2, y2 = target_position
+            
+            # Move horizontally
+            if x1 < x2:
+                x1 += 1
+            elif x1 > x2:
+                x1 -= 1
+            
+            # Move vertically
+            if y1 < y2:
+                y1 += 1
+            elif y1 > y2:
+                y1 -= 1
+            
+            # Update the enemy's position
+            self.position = (x1, y1)
 
-        if self.position == target_position:
-            print("found target")
-            del self.path[0]
+            if self.position == target_position:
+                #print("found target")
+                del self.path[0]
+                break
 
 
     def draw(self, screen):
