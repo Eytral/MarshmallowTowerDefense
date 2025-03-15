@@ -35,12 +35,15 @@ class WaveManager:
         self.wave_ongoing = True
 
     def next_wave(self):
-        """Increase difficulty for the next wave."""
-        print("starting next wave")
-        if self.wave_number != 1:
-            self.wave_number += 1
-            self.enemy_count += self.wave_increase  # Increase number of enemies per wave
-        self.start_wave()
+        if not self.wave_ongoing:
+            """Increase difficulty for the next wave."""
+            print("starting next wave")
+            if self.wave_number != 1:
+                self.wave_number += 1
+                self.enemy_count += self.wave_increase  # Increase number of enemies per wave
+            self.start_wave()
+        else:
+            print(f"Cannot start next wave yet! Current wave is still ongoing")
 
     def update(self):
         if self.wave_ongoing:
