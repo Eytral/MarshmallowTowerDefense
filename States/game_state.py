@@ -5,7 +5,7 @@ import pygame
 from Constants import config
 from Entities.Towers.base_tower import Tower
 from UI.tower_selection_panel import TowerSelectionMenu
-from Entities.Enemies.base_enemy import Enemy
+from Game.wave_manager import WaveManager
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -25,6 +25,7 @@ class Game_State(State):
         self.towers = {}
         self.towerselectionpanel = TowerSelectionMenu(self.game)
         self.enemies = []
+        self.wave_manager = WaveManager(self.game)
 
 
     # -- STATE HANDLING --
@@ -93,6 +94,7 @@ class Game_State(State):
             self.mouse.update_mouse_pos()
             self.handle_events(events)  # Process player input and other events
             self.update_enemies()
+            self.wave_manager.update()
 
 
     def handle_events(self, events):
@@ -106,6 +108,9 @@ class Game_State(State):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     self.game.state_manager.change_state("Pause_State")
+
+                if event.key == pygame.K_o: #temp to test waves/enemy spawning
+                    self.wave_manager.next_wave()
     
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for button in self.towerselectionpanel.buttons:
