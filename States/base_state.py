@@ -44,11 +44,11 @@ class State(ABC):
         """
         pass
 
-    def enter(self):
+    def enter(self, *args, **kwargs):
         """Called when the state is entered."""
         pass
 
-    def exit(self):
+    def exit(self, *args, **kwargs):
         """Called when the state is exited"""
         pass
 

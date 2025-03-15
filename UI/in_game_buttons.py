@@ -63,4 +63,4 @@ class GameButtons():
         """
         Allows the player to remove a tower.
         """
-        self.game.state_manager.change_state("Pause_State")
+        self.game.state_manager.change_state("Pause_State", exiting_game=False)

@@ -36,7 +36,8 @@ class StateManager:
         """
         if new_state in self.states:
             if self.current_state:
-                self.current_state.exit()  # Exit the current state
+                self.current_state.exit(**kwargs)  # Exit the current state
+
             self.current_state = self.states[new_state]  # Switch to the new state
             self.current_state.enter(*args, **kwargs)  # Initialize the new state
 

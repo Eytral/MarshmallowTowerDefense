@@ -20,7 +20,6 @@ class Game_State(State):
         """
 
         super().__init__(game)  # Call the parent State class constructor
-        self.level = None
         self.map = None
         self.mouse = Mouse()
         self.towers = {}
@@ -48,6 +47,16 @@ class Game_State(State):
 
     def load_level(self):
         pass
+
+    def exit(self, **kwargs):
+        exiting_game = kwargs.get("exiting_game", True)
+        if exiting_game:
+            self.map.reset_map()
+            self.enemies = []
+            self.towers = {}
+            self.wave_manager.reset_waves()
+            print("Game successfully exited")
+
 
 
     # -- RENDERING --
@@ -108,12 +117,6 @@ class Game_State(State):
             events: A list of events such as key presses or mouse clicks.
         """
         for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_p:
-                    self.game.state_manager.change_state("Pause_State")
-
-                if event.key == pygame.K_o: #temp to test waves/enemy spawning
-                    self.wave_manager.next_wave()
     
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for button in self.towerselectionpanel.buttons:
