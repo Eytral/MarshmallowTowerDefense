@@ -107,6 +107,7 @@ class Game_State(State):
             self.handle_events(events)  # Process player input and other events
             self.update_enemies()
             self.wave_manager.update()
+            self.update_towers()
 
 
     def handle_events(self, events):
@@ -139,6 +140,10 @@ class Game_State(State):
             if enemy.is_dead or enemy.reached_end:
                 self.enemies.remove(enemy)
                 print(f"Enemy has been removed")
+
+    def update_towers(self):
+        for _, tower in self.towers.items():
+            tower.update(self.enemies)
 
     def place_tower(self):
         """

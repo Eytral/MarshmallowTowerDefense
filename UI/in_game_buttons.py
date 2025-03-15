@@ -23,7 +23,7 @@ class GameButtons():
 
         # Create button data with text and corresponding action
         button_data = [
-            ("Start", self.start_wave),
+            ("Next Wave", self.start_wave),
             ("Pause", self.pause_game)
         ]
         
