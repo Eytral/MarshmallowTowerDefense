@@ -15,3 +15,6 @@ TOWER_DEFAULT_SPRITE = pygame.transform.scale(tower_default, (config.GRID_CELL_S
 
 enemy_default = pygame.image.load("Assets/Sprites/enemy_placeholder_sprite.png")
 ENEMY_DEFAULT_SPRITE = pygame.transform.scale(enemy_default, (config.GRID_CELL_SIZE, config.GRID_CELL_SIZE))
+
+bullet_img = pygame.image.load("Assets/Sprites/bullet.png")
+BULLET_SPRITE = pygame.transform.scale(bullet_img, (config.GRID_CELL_SIZE//5, config.GRID_CELL_SIZE//5))
