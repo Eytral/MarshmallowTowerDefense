@@ -5,7 +5,8 @@ import pygame
 from Constants import config
 from Entities.Towers.base_tower import Tower
 from UI.tower_selection_panel import TowerSelectionMenu
-from Entities.Enemies.base_enemy import Enemy
+from Game.wave_manager import WaveManager
+from UI.in_game_buttons import GameButtons
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -24,6 +25,7 @@ class Game_State(State):
         self.mouse = Mouse()
         self.towers = {}
         self.towerselectionpanel = TowerSelectionMenu(self.game)
+        self.gamebuttons = GameButtons(self.game)
         self.enemies = []
 
 
@@ -59,6 +61,7 @@ class Game_State(State):
         self.draw_towers(screen)
         self.draw_enemies(screen)
         self.towerselectionpanel.draw(screen)
+        self.gamebuttons.draw(screen)
 
 
     def draw_towers(self, screen):
@@ -79,7 +82,7 @@ class Game_State(State):
         """
         super().draw_debug_info(screen)
         mouse_map_grid_text = self.debug_font.render(f"Mouse map_grid_pos: {(self.mouse.map_grid_x, self.mouse.map_grid_y)}", True, (255, 255, 255))
-        screen.blit(mouse_map_grid_text, (10,config.DEBUG_MOUSEGRIDTEXT_POS))
+        screen.blit(mouse_map_grid_text, (config.DEBUG_TEXT_X,config.DEBUG_MOUSEGRIDTEXT_POS))
 
 
     # -- EVENT HANDLING --
@@ -109,6 +112,10 @@ class Game_State(State):
     
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for button in self.towerselectionpanel.buttons:
+                    if button.is_hovered():
+                        button.click()
+                
+                for button in self.gamebuttons.buttons:
                     if button.is_hovered():
                         button.click()
 

@@ -45,7 +45,7 @@ class TowerSelectionMenu():
         for index, (text, action) in enumerate(button_data):
             # Create each button and add it to the buttons list
             self.buttons.append(Button(text,
-                                       (config.SCREEN_WIDTH - config.SCREEN_SIDEBAR_WIDTH // 1, config.SCREEN_TOPBAR_HEIGHT + config.BUTTON_OFFSET * index),
+                                       (config.SCREEN_WIDTH - config.SCREEN_SIDEBAR_WIDTH // 1, config.SCREEN_TOPBAR_HEIGHT + config.BUTTON_VERTICAL_OFFSET * index),
                                        action))
 
     def draw(self, screen):

@@ -61,10 +61,10 @@ class State(ABC):
         """
         #draw current game_state
         state_text = self.debug_font.render(f"Current State: {self.game.state_manager.current_state.__class__.__name__}", True, (255, 255, 255))
-        screen.blit(state_text, (10,config.DEBUG_STATETEXT_POS))
+        screen.blit(state_text, (config.DEBUG_TEXT_X,config.DEBUG_STATETEXT_POS))
 
         mouse_coords_text = self.debug_font.render(f"Mouse pos: {pygame.mouse.get_pos()}", True, (255, 255, 255))
-        screen.blit(mouse_coords_text, (10,config.DEBUG_MOUSEPOSTEXT_POS))
+        screen.blit(mouse_coords_text, (config.DEBUG_TEXT_X,config.DEBUG_MOUSEPOSTEXT_POS))
 
     
 
