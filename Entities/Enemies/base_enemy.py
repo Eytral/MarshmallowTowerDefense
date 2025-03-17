@@ -12,6 +12,8 @@ class Enemy():
         self.is_dead = False
         self.reached_end = False
         self.sprite = sprites.ENEMY_DEFAULT_SPRITE
+
+        self.prev_position = copy.deepcopy(start_position)
         
     def move(self):
         for _ in range(self.speed):
@@ -34,6 +36,7 @@ class Enemy():
                 y1 -= 1
             
             # Update the enemy's position
+            self.prev_position = copy.deepcopy(self.position)
             self.position = (x1, y1)
             self.grid_position = (x1//config.GRID_CELL_SIZE, y1//config.GRID_CELL_SIZE)
 
