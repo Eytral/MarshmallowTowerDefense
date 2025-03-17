@@ -1,7 +1,7 @@
 import pygame
 from Constants import config
 
-marsh_mallows_img = pygame.image.load("Assets/Maps/placeholder_map.png")
+marsh_mallows_img = pygame.image.load("Assets/Maps/placeholder_map.jpeg")
 MARSH_MALLOWS_SPRITE = pygame.transform.scale(marsh_mallows_img, (config.GRID_SIZE, config.GRID_SIZE))
 
 birdflamethrower_sprite = pygame.image.load("Assets/Sprites/birdflamethrower.png")
