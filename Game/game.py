@@ -58,13 +58,13 @@ class Game():
 
                 # Draw debug info
                 if self.debug:
-                    self.state_manager.current_state.draw_debug_info(self.screen)
+                    self.state_manager.current_state.draw_debug_info(self.screen, self.clock.get_fps())
 
                 # Refresh the display
                 pygame.display.flip()
 
                 # Limit the frame rate to 60 FPS
-                self.clock.tick(60)
+                self.clock.tick(config.FPS)
 
             except Exception as e:
                 # Handle unexpected errors, print the error message, and stop the game

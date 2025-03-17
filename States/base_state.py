@@ -52,7 +52,7 @@ class State(ABC):
         """Called when the state is exited"""
         pass
 
-    def draw_debug_info(self, screen):
+    def draw_debug_info(self, screen, *args):
         """
         Drawing logic for debug text
 
@@ -61,10 +61,14 @@ class State(ABC):
         """
         #draw current game_state
         state_text = self.debug_font.render(f"Current State: {self.game.state_manager.current_state.__class__.__name__}", True, (255, 255, 255))
-        screen.blit(state_text, (config.DEBUG_TEXT_X,config.DEBUG_STATETEXT_POS))
+        screen.blit(state_text, (config.DEBUG_TEXT_X,config.DEBUG_TEXT_DEFAULT_HEIGHT))
 
         mouse_coords_text = self.debug_font.render(f"Mouse pos: {pygame.mouse.get_pos()}", True, (255, 255, 255))
-        screen.blit(mouse_coords_text, (config.DEBUG_TEXT_X,config.DEBUG_MOUSEPOSTEXT_POS))
+        screen.blit(mouse_coords_text, (config.DEBUG_TEXT_X,config.DEBUG_TEXT_DEFAULT_HEIGHT-config.DEBUG_TEXT_OFFSET))
 
+        if args:
+            fps = args[0]
+            fps_text = self.debug_font.render(f"fps: {fps}", True, (255, 255, 255))
+            screen.blit(fps_text, (config.DEBUG_TEXT_X,config.DEBUG_TEXT_DEFAULT_HEIGHT-config.DEBUG_TEXT_OFFSET*2))
     
 

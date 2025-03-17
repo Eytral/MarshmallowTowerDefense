@@ -30,6 +30,7 @@ class Mouse():
         Adjusts the mouse position to take the screen's top bar height into account
         and maps the mouse position to the grid based on the defined grid cell size.
         """
+        
         x, y = pygame.mouse.get_pos()  # Get current mouse position
         y -= config.SCREEN_TOPBAR_HEIGHT  # Adjust for the screen top bar height
         map_grid_x = x // config.GRID_CELL_SIZE  # Calculate the grid column the mouse is on
@@ -38,7 +39,8 @@ class Mouse():
         map_grid_y = y // config.GRID_CELL_SIZE  # Calculate the grid row the mouse is on
         if map_grid_y >= config.GRID_CELL_COUNT or map_grid_y < 0:  # If out of bounds, set to None
             map_grid_y = None
-        self.map_grid_x, self.map_grid_y = map_grid_x, map_grid_y  # Update the grid position attributes
+        self.map_grid_x, self.map_grid_y = map_grid_x, map_grid_y  # Update the grid position attributes'
+
 
     def is_on_grid(self):
         """
@@ -62,10 +64,3 @@ class Mouse():
         """
         self.current_action = action  # Set the new action
         self.current_selection = selection  # Set the new selection
-
-    def no(self):
-        """
-        A placeholder method that does nothing.
-        This can be used as a placeholder for future functionality or removed if not needed.
-        """
-        pass

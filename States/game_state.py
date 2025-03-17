@@ -82,7 +82,7 @@ class Game_State(State):
         for enemy in self.enemies:
             enemy.draw(screen)
 
-    def draw_debug_info(self, screen):
+    def draw_debug_info(self, screen, *args):
         """
         Draws debug information relevant to game state:
         Mouse map_grid_pos: Shows the grid index the mouse is hovering over
@@ -90,9 +90,9 @@ class Game_State(State):
         Args:
             screen: pygame display surface
         """
-        super().draw_debug_info(screen)
+        super().draw_debug_info(screen, self.game.clock.get_fps())
         mouse_map_grid_text = self.debug_font.render(f"Mouse map_grid_pos: {(self.mouse.map_grid_x, self.mouse.map_grid_y)}", True, (255, 255, 255))
-        screen.blit(mouse_map_grid_text, (config.DEBUG_TEXT_X,config.DEBUG_MOUSEGRIDTEXT_POS))
+        screen.blit(mouse_map_grid_text, (config.DEBUG_TEXT_X,config.DEBUG_TEXT_DEFAULT_HEIGHT-config.DEBUG_TEXT_OFFSET*3)) #Replace with optional args for function instead - redundant code
 
 
     # -- EVENT HANDLING --
