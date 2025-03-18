@@ -20,7 +20,6 @@ class Game():
 
         self.clock = pygame.time.Clock()  # Create a clock to manage frame rate
         self.running = True  # Controls the game loop execution
-
         # Initialize the state manager and add different game states
         self.state_manager = StateManager() 
         self.state_manager.add_state("Menu_State", Menu_State(self))
@@ -29,6 +28,7 @@ class Game():
 
         # Start the game in the main menu
         self.state_manager.change_state("Menu_State")
+
 
         self.debug = True
 

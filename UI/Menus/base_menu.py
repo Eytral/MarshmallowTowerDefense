@@ -10,6 +10,7 @@ class Menu(ABC):
         self.title = title
         self.create_buttons(button_data)
         self.title_font = pygame.font.Font(None, 74)  # Font for the title
+        self.body_font = pygame.font.Font(None, 37)  # Font for the title
 
 
     def draw(self, screen):

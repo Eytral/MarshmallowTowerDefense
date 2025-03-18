@@ -28,6 +28,12 @@ class PauseMenu(Menu):
         # Create and render the title text
         super().draw(screen)  # Call the draw method from the parent class to draw the buttons
 
+        # Draw Difficulty Text
+        difficulty_surface = self.body_font.render(f"Difficulty: {self.game.state_manager.states["Game_State"].wave_manager.difficulty}", True, (255, 255, 255))  # White color for title text
+        text_rect = difficulty_surface.get_rect()  # Get the rect of the title text for positioning
+        text_rect.center = (config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT-config.BUTTON_VERTICAL_OFFSET)  # Position the title at the center horizontally and near the top
+        screen.blit(difficulty_surface, text_rect)  # Draw the title on the screen
+
     # ACTIONS (called when the respective buttons are clicked)
     def resume_game(self):
         """

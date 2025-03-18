@@ -14,7 +14,7 @@ class WaveManager:
         wave_enemy_spawn_increase: Number of additional enemies per wave.
     """
 
-    def __init__(self, game, difficulty="Normal"):
+    def __init__(self, game):
         """
         Initializes the WaveManager.
 
@@ -28,7 +28,7 @@ class WaveManager:
         self.spawn_cooldown = 0  # Countdown timer for enemy spawning
         self.wave_ongoing = False  # Flag indicating whether a wave is currently active
         self.game = game  # Stores reference to the game instance
-        self.difficulty = difficulty
+        self.difficulty = "Normal"
 
         self.accumulated_spawns = {enemy_name: count for enemy_name, count in SPAWNING_DATA[self.difficulty]["Default_Spawn"].items()}
         self.enemy_spawn_queue = []
