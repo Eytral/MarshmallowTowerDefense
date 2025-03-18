@@ -3,7 +3,6 @@ from Game.map import Map
 from Game.mouse import Mouse
 import pygame
 from Constants import config
-from Entities.Towers.base_tower import Tower
 from UI.tower_selection_panel import TowerSelectionMenu
 from Game.wave_manager import WaveManager
 from UI.in_game_buttons import GameButtons
