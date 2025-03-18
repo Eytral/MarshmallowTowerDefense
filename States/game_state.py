@@ -27,6 +27,7 @@ class Game_State(State):
         self.gamebuttons = GameButtons(self.game)
         self.enemies = []
         self.wave_manager = WaveManager(self.game)
+        self.money = 0
 
 
     # -- STATE HANDLING --
@@ -140,6 +141,8 @@ class Game_State(State):
             if enemy.is_dead or enemy.reached_end:
                 self.enemies.remove(enemy)
                 print(f"Enemy has been removed")
+                if enemy.is_dead:
+                    self.money += enemy.reward
 
     def update_towers(self):
         for _, tower in self.towers.items():
