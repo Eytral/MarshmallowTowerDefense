@@ -1,8 +1,9 @@
 from Constants import sprites, config
 import copy
+import pygame
 
 class Enemy():
-    def __init__(self, start_position, path, reward=5, health=100, speed=2):
+    def __init__(self, start_position, path, reward=5, health=10, speed=10):
         self.reward = reward
         self.health = health
         self.speed = speed
@@ -13,7 +14,12 @@ class Enemy():
         self.reached_end = False
         self.sprite = sprites.ENEMY_DEFAULT_SPRITE
 
+        self.centre_position = (self.position[0] + config.GRID_CELL_SIZE//2, self.position[1] + config.GRID_CELL_SIZE//2)
+
+        self.prev_centre_position = copy.deepcopy(self.centre_position)
         self.prev_position = copy.deepcopy(start_position)
+
+        self.hitbox = pygame.Rect(self.position[0], self.position[1], config.GRID_CELL_SIZE, config.GRID_CELL_SIZE)
         
     def move(self):
         for _ in range(self.speed):
@@ -38,7 +44,11 @@ class Enemy():
             # Update the enemy's position
             self.prev_position = copy.deepcopy(self.position)
             self.position = (x1, y1)
+            self.centre_position = (self.position[0] + config.GRID_CELL_SIZE//2, self.position[1] + config.GRID_CELL_SIZE//2)
+            self.prev_centre_position = copy.deepcopy(self.centre_position)
             self.grid_position = (x1//config.GRID_CELL_SIZE, y1//config.GRID_CELL_SIZE)
+            self.hitbox = pygame.Rect(self.position[0], self.position[1], config.GRID_CELL_SIZE, config.GRID_CELL_SIZE)
+
 
             if self.position == target_position:
                 #print("found target")
