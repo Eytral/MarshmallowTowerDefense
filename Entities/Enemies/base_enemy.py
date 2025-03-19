@@ -6,6 +6,7 @@ class Enemy():
     def __init__(self, start_position, path, reward=5, health=10, speed=2):
         self.reward = reward
         self.health = health
+        self.damage = self.health
         self.speed = speed
         self.position = copy.deepcopy(start_position)
         self.grid_position = (copy.deepcopy(start_position[0])//config.GRID_CELL_SIZE, copy.deepcopy(start_position[1])//config.GRID_CELL_SIZE)
@@ -63,6 +64,7 @@ class Enemy():
     def take_damage(self, damage):
         print(f"Enemy taken {damage} damage")
         self.health -= damage
+        self.damage = self.health
 
     def check_is_dead(self):
         #print("Checking is dead")

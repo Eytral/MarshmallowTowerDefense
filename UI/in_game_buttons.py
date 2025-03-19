@@ -29,6 +29,7 @@ class GameButtons():
         
         # Create buttons using the provided button data
         self.create_buttons(button_data)
+        self.body_font = pygame.font.Font(None, 20)
 
     def create_buttons(self, button_data):
         """
@@ -40,7 +41,7 @@ class GameButtons():
         for index, (text, action) in enumerate(button_data):
             # Create each button and add it to the buttons list
             self.buttons.append(Button(text,
-                                       (10 + config.BUTTON_HORIZONTAL_OFFSET * index, config.SCREEN_TOPBAR_HEIGHT//4),
+                                       (220 + config.BUTTON_HORIZONTAL_OFFSET * index, config.SCREEN_TOPBAR_HEIGHT//4),
                                        action))
 
     def draw(self, screen):
@@ -52,6 +53,17 @@ class GameButtons():
         """
         for button in self.buttons:
             button.draw(screen)  # Draw each button
+        
+        health_surface = self.body_font.render(f"Health: {self.game.state_manager.states["Game_State"].health}", True, (255, 255, 255))  # White color for title text
+        text_rect = health_surface.get_rect()  # Get the rect of the title text for positioning
+        text_rect.center = (50, config.SCREEN_TOPBAR_HEIGHT//4)  # Position the title at the center horizontally and near the top
+        screen.blit(health_surface, text_rect)  # Draw the title on the screen
+
+        money_surface = self.body_font.render(f"Money: {self.game.state_manager.states["Game_State"].money}", True, (255, 255, 255))  # White color for title text
+        text_rect = money_surface.get_rect()  # Get the rect of the title text for positioning
+        text_rect.center = (50, config.SCREEN_TOPBAR_HEIGHT//4*2)  # Position the title at the center horizontally and near the top
+        screen.blit(money_surface, text_rect)  # Draw the title on the screen
+        
 
     def start_wave(self):
         """

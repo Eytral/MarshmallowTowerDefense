@@ -20,13 +20,15 @@ class Game_State(State):
 
         super().__init__(game)  # Call the parent State class constructor
         self.map = None
+        self.money = 0
+        self.health = 100
+        self.difficulty = "Normal"
         self.mouse = Mouse()
         self.towers = {}
         self.towerselectionpanel = TowerSelectionMenu(self.game)
         self.gamebuttons = GameButtons(self.game)
         self.enemies = []
         self.wave_manager = WaveManager(self.game)
-        self.money = 0
 
 
     # -- STATE HANDLING --
@@ -134,14 +136,19 @@ class Game_State(State):
                 if self.mouse.current_action == "Removing Tower":
                     self.remove_tower()
 
+    def change_difficulty(self, difficulty):
+        self.difficulty = difficulty
+        self.wave_manager.difficulty = difficulty
+        print(f"Successfully changed difficuty to {difficulty}")
+
     def update_enemies(self):
-        '''
+    
         for _, tower in self.towers.items():
             for bullet in tower.bullets:
                 for enemy in self.enemies:
                     if pygame.Rect.colliderect(bullet.hitbox, enemy.hitbox):
                         enemy.take_damage(tower.bullet_damage)
-        '''
+        
 
         for enemy in self.enemies:
             enemy.update()
