@@ -4,6 +4,11 @@ SPAWNING_DATA = {
 
     "Easy": {
 
+    "Game_Stats":{
+        "Starting Money": 30,
+        "Starting Health": 100
+    },
+
     "Default_Spawn": {
         "marshmallow enemy": 3,
         "cracker enemy": 2,
@@ -25,6 +30,11 @@ SPAWNING_DATA = {
 
     "Normal": {
 
+    "Game_Stats":{
+        "Starting Money": 20,
+        "Starting Health": 75
+    },
+
     "Default_Spawn": {
         "marshmallow enemy": 4,
         "cracker enemy": 3,
@@ -45,18 +55,22 @@ SPAWNING_DATA = {
 
 # HARD /////////////////////////////////
 
-        "Hard": {
+    "Hard": {
 
-        "Default_Spawn": {
+    "Game_Stats":{
+        "Starting Money": 10,
+        "Starting Health": 50
+    },
+
+    "Default_Spawn": {
         "marshmallow enemy": 5,
         "cracker enemy": 4,
         "white_chocolate enemy": 1.5,
         "dark_chocolate enemy": 0.5,
         "smore enemy": 0.25
-        },
+    },
 
-        "Increment": {
-
+    "Increment": {
         "marshmallow enemy": 3.5,
         "cracker enemy": 2,
         "white_chocolate enemy": 1.25,
@@ -66,16 +80,3 @@ SPAWNING_DATA = {
     },
 }
 
-from Entities.Enemies.marshmallow_enemy import Marshmallow
-from Entities.Enemies.cracker_enemy import Cracker
-from Entities.Enemies.white_chocolate_enemy import WhiteChocolate
-from Entities.Enemies.dark_chocolate_enemy import DarkChocolate
-from Entities.Enemies.smore_enemy import Smore
-
-ENEMY_CLASS_MAP = {
-    "marshmallow enemy": Marshmallow,
-    "cracker enemy": Cracker,
-    "white_chocolate enemy": WhiteChocolate,
-    "dark_chocolate enemy": DarkChocolate,
-    "smore enemy": Smore,
-}
