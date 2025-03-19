@@ -6,6 +6,7 @@ from Constants import config
 from UI.tower_selection_panel import TowerSelectionMenu
 from Game.wave_manager import WaveManager
 from UI.in_game_buttons import GameButtons
+from Game.game_data import SPAWNING_DATA
 
 class Game_State(State):
     """Main game engine - Manages the in-game logic, events, and rendering"""
@@ -20,9 +21,12 @@ class Game_State(State):
 
         super().__init__(game)  # Call the parent State class constructor
         self.map = None
-        self.money = 0
-        self.health = 100
+
         self.difficulty = "Normal"
+        self.starting_money = SPAWNING_DATA[self.difficulty]["Game_Stats"]["Starting Money"]
+        self.money = self.starting_money
+        self.starting_health = SPAWNING_DATA[self.difficulty]["Game_Stats"]["Starting Health"]
+        self.health = self.starting_health
         self.mouse = Mouse()
         self.towers = {}
         self.towerselectionpanel = TowerSelectionMenu(self.game)
@@ -44,6 +48,8 @@ class Game_State(State):
             self.level = level_name
             self.map = Map(level_name)
             print(f"Entering level {self.level}")
+        self.health = self.starting_health
+        self.money = self.starting_money
 
         self.load_level()
 
@@ -110,6 +116,7 @@ class Game_State(State):
             self.update_enemies()
             self.wave_manager.update()
             self.update_towers()
+            self.game_over()
 
 
     def handle_events(self, events):
@@ -139,7 +146,14 @@ class Game_State(State):
     def change_difficulty(self, difficulty):
         self.difficulty = difficulty
         self.wave_manager.difficulty = difficulty
+        self.starting_health = SPAWNING_DATA[self.difficulty]["Game_Stats"]["Starting Health"]
+        self.starting_money = SPAWNING_DATA[self.difficulty]["Game_Stats"]["Starting Money"]
         print(f"Successfully changed difficuty to {difficulty}")
+
+    def game_over(self):
+        if self.health <= 0:
+            self.game.state_manager.change_state("Menu_State")
+            self.game.state_manager.states["Menu_State"].change_menu("GameOverMenu")
 
     def update_enemies(self):
     
@@ -149,7 +163,6 @@ class Game_State(State):
                     if pygame.Rect.colliderect(bullet.hitbox, enemy.hitbox):
                         enemy.take_damage(tower.bullet_damage)
         
-
         for enemy in self.enemies:
             enemy.update()
             if enemy.is_dead or enemy.reached_end:
@@ -157,6 +170,8 @@ class Game_State(State):
                 print(f"Enemy has been removed")
                 if enemy.is_dead:
                     self.money += enemy.reward
+                if enemy.reached_end:
+                    self.health -= enemy.damage
 
     def update_towers(self):
         for _, tower in self.towers.items():
@@ -166,10 +181,12 @@ class Game_State(State):
         """
         Places a tower on the map grid and adds the selected tower to the game_state tower dict
         """
-        if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y): # If able to place tower
-            self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection(self.mouse.map_grid_x, self.mouse.map_grid_y) # Create new tower object
-            print(f"successfully placed tower, tower list is{self.towers}") # print dictionary of towers for debugging purposes
-            self.mouse.change_current_action(None, None) # Reset mouse action and selection
+        if self.money >= self.mouse.current_selection(0,0).cost:
+            if self.map.place_tower(self.mouse.map_grid_x, self.mouse.map_grid_y): # If able to place tower
+                self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] = self.mouse.current_selection(self.mouse.map_grid_x, self.mouse.map_grid_y) # Create new tower object
+                self.money -= self.mouse.current_selection(0,0).cost # Removes the cost of the tower from money
+                print(f"successfully placed tower, tower list is{self.towers}") # print dictionary of towers for debugging purposes
+                self.mouse.change_current_action(None, None) # Reset mouse action and selection
 
 
     def remove_tower(self): # If able to remove tower
@@ -178,5 +195,6 @@ class Game_State(State):
         """
         if self.map.remove_tower(self.mouse.map_grid_x, self.mouse.map_grid_y):
             del self.towers[(self.mouse.map_grid_x, self.mouse.map_grid_y)] # Delete selected tower object (at selected map coordinate)
+            self.money += self.mouse.current_selection(0,0).cost//2 # Returns half the cost of the tower
             print(f"successfully deleted tower, tower list is{self.towers}") # print dictionary of towers for debugging purposes
             self.mouse.change_current_action(None, None) # Reset mouse action and selection
