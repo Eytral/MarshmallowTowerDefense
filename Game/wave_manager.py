@@ -45,19 +45,23 @@ class WaveManager:
         random.shuffle(self.enemy_spawn_queue)
 
     def initialise_next_spawn_wave(self):
-            if self.wave_number != 1:
-                for enemy_name, increment in SPAWNING_DATA[self.difficulty]["Increment"].items():
-                    self.accumulated_spawns[enemy_name] += increment
-                    print(f"accumulated spawns data straight after update is: {self.accumulated_spawns}")
+        self.accumulated_spawns = {enemy_name: count for enemy_name, count in SPAWNING_DATA[self.difficulty]["Default_Spawn"].items()}
 
-            spawn_wave = {enemy_name: math.floor(count) for enemy_name, count in self.accumulated_spawns.items()}
-            self.create_enemy_spawn_queue(spawn_wave)
-            print(f"spawn wave is: {spawn_wave}, accumulated spawns data is: {self.accumulated_spawns}")
+        if self.wave_number != 1:
+            for enemy_name, increment in SPAWNING_DATA[self.difficulty]["Increment"].items():
+                self.accumulated_spawns[enemy_name] += increment
+                print(f"accumulated spawns data straight after update is: {self.accumulated_spawns}")
+
+        spawn_wave = {enemy_name: math.floor(count) for enemy_name, count in self.accumulated_spawns.items()}
+        self.create_enemy_spawn_queue(spawn_wave)
+        print(f"spawn wave is: {spawn_wave}, accumulated spawns data is: {self.accumulated_spawns}")
 
     def spawn_enemies(self):
         """
         Spawns enemies at regular intervals if there are more to be spawned.
         """
+
+        print(f"spawn cooldown is: {self.spawn_cooldown}")
         if len(self.enemy_spawn_queue) > 0:
             if self.spawn_cooldown == 0:
                 enemy_name = self.enemy_spawn_queue[0] # Spawn first enemy in queue
@@ -100,7 +104,6 @@ class WaveManager:
         Resets all wave-related parameters, typically used when restarting the game.
         """
         self.wave_number = 1  # Reset wave number to the first wave
-        self.spawn_interval = 200  # Reset the time between enemy spawns
         self.spawn_cooldown = 0  # Reset the cooldown for enemy spawning
         self.wave_ongoing = False  # Mark the wave as inactive
         self.accumulated_spawns = {enemy_name: count for enemy_name, count in SPAWNING_DATA[self.difficulty]["Default_Spawn"].items()} # Reset Spawn Counter

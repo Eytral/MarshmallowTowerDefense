@@ -45,4 +45,4 @@ class OptionsMenu(Menu):
         self.game.state_manager.current_state.change_menu("MainMenu")
 
     def change_difficulty(self, difficulty):
-        self.game.state_manager.states["Game_State"].wave_manager.difficulty = difficulty
+        self.game.state_manager.states["Game_State"].change_difficulty(difficulty)
