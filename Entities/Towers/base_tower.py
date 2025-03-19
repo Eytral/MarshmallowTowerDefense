@@ -3,7 +3,7 @@ from Entities.bullet import Bullet
 import pygame
 
 class Tower():
-    def __init__(self, x_grid_pos, y_grid_pos, range=5, fire_rate=20, bullet_speed=20, bullet_damage=2, cost=10):
+    def __init__(self, x_grid_pos, y_grid_pos, range=5, fire_rate=30, bullet_speed=20, bullet_damage=2, cost=10):
         self.sprite = sprites.TOWER_DEFAULT_SPRITE
         self.x_grid_pos = x_grid_pos
         self.y_grid_pos = y_grid_pos

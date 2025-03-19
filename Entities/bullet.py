@@ -44,12 +44,6 @@ class Bullet:
         self.y_pos += self.vy
         self.hitbox = pygame.Rect(self.x_pos, self.y_pos, config.GRID_CELL_SIZE//5, config.GRID_CELL_SIZE//5) # MAKE CONSTANTS FOR SIZE??
 
-
-        # Stop bullet when close to target
-        if pygame.Rect.colliderect(self.target.hitbox, self.hitbox):
-            self.target.take_damage(self.damage)
-            self.active = False
-
     def draw(self, screen):
         """ Render the bullet on screen. """
         screen.blit(self.sprite, (self.x_pos, self.y_pos))

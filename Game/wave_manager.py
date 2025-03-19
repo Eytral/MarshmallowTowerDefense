@@ -62,7 +62,7 @@ class WaveManager:
         Spawns enemies at regular intervals if there are more to be spawned.
         """
 
-        print(f"spawn cooldown is: {self.spawn_cooldown}")
+        #print(f"spawn cooldown is: {self.spawn_cooldown}")
         if len(self.enemy_spawn_queue) > 0:
             if self.spawn_cooldown == 0:
                 enemy_name = self.enemy_spawn_queue[0] # Spawn first enemy in queue
