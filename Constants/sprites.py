@@ -38,4 +38,4 @@ SMORE_SPRITE = pygame.transform.scale(smore, (config.GRID_CELL_SIZE, config.GRID
 
 # Projectile Sprites------------------------------------------------------------------------------------------------------------------------
 bullet_img = pygame.image.load("Assets/Sprites/Projectiles/bullet.jpg")
-BULLET_SPRITE = pygame.transform.scale(bullet_img, (config.GRID_CELL_SIZE//5, config.GRID_CELL_SIZE//5))
+BULLET_SPRITE = pygame.transform.scale(bullet_img, (config.GRID_CELL_SIZE//3, config.GRID_CELL_SIZE//3))

@@ -3,7 +3,7 @@ import copy
 import pygame
 
 class Enemy():
-    def __init__(self, start_position, path, reward=5, health=10, speed=10):
+    def __init__(self, start_position, path, reward=5, health=10, speed=2):
         self.reward = reward
         self.health = health
         self.speed = speed

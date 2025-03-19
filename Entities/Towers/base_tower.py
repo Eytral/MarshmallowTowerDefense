@@ -1,8 +1,9 @@
 from Constants import config, sprites
 from Entities.bullet import Bullet
+import pygame
 
 class Tower():
-    def __init__(self, x_grid_pos, y_grid_pos, range=5, fire_rate=20, bullet_speed=10, bullet_damage=2):
+    def __init__(self, x_grid_pos, y_grid_pos, range=5, fire_rate=20, bullet_speed=20, bullet_damage=2):
         self.sprite = sprites.TOWER_DEFAULT_SPRITE
         self.x_grid_pos = x_grid_pos
         self.y_grid_pos = y_grid_pos
@@ -50,10 +51,11 @@ class Tower():
                 self.shoot()
         else:
             self.shoot_cooldown -= 1
+        self.bullets = [bullet for bullet in self.bullets if bullet.active]
         
         for bullet in self.bullets:
             bullet.update()
-        self.bullets = [bullet for bullet in self.bullets if bullet.active]
+
 
         
 

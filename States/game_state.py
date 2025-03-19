@@ -135,6 +135,14 @@ class Game_State(State):
                     self.remove_tower()
 
     def update_enemies(self):
+        '''
+        for _, tower in self.towers.items():
+            for bullet in tower.bullets:
+                for enemy in self.enemies:
+                    if pygame.Rect.colliderect(bullet.hitbox, enemy.hitbox):
+                        enemy.take_damage(tower.bullet_damage)
+        '''
+
         for enemy in self.enemies:
             enemy.update()
             if enemy.is_dead or enemy.reached_end:
