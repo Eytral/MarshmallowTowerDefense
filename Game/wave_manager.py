@@ -1,6 +1,7 @@
 from Constants import config  # Import game configuration settings
 from Entities.Enemies.base_enemy import Enemy  # Import the base enemy class
-from Game.spawning_data import SPAWNING_DATA, ENEMY_CLASS_MAP
+from Game.game_data import SPAWNING_DATA
+from Game.enemy_class_mapping import ENEMY_CLASS_MAP
 import math
 import random
 
