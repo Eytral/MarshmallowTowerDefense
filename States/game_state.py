@@ -162,6 +162,7 @@ class Game_State(State):
                 for enemy in self.enemies:
                     if pygame.Rect.colliderect(bullet.hitbox, enemy.hitbox):
                         enemy.take_damage(tower.bullet_damage)
+                        bullet.active = False
         
         for enemy in self.enemies:
             enemy.update()
